@@ -99,8 +99,8 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        txtFullName = (TextView)headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.currentUser.getName());
+//        txtFullName = (TextView)headerView.findViewById(R.id.txtFullName);
+//        txtFullName.setText(Common.currentUser.getName());
 
         recycler_menu = (RecyclerView)findViewById(R.id.recycler_menu);
         recycler_menu.setHasFixedSize(true);
@@ -282,6 +282,16 @@ public class Home extends AppCompatActivity
         if(id == R.id.nav_orders){
             Intent orders = new Intent(Home.this,OrderStatus.class);
             startActivity(orders);
+        }
+        else if(id== R.id.nav_QR){
+            Intent qrcode = new Intent(Home.this,QRCodeScan.class);
+            startActivity(qrcode);
+
+        }
+        else if(id== R.id.nav_announcement){
+            Intent announcement = new Intent(Home.this,post.class);
+            startActivity(announcement);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
