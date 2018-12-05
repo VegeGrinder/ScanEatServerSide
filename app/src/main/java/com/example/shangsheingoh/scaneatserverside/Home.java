@@ -32,6 +32,7 @@ import com.example.shangsheingoh.scaneatserverside.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -55,6 +56,7 @@ public class Home extends AppCompatActivity
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
+    private FirebaseAuth firebaseAuth;
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
@@ -80,6 +82,7 @@ public class Home extends AppCompatActivity
         categories = database.getReference("Category");
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        firebaseAuth=FirebaseAuth.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -293,6 +296,14 @@ public class Home extends AppCompatActivity
             startActivity(announcement);
 
         }
+        else if(id== R.id.nav_log_out){
+            firebaseAuth.signOut();
+            Intent logout = new Intent(Home.this,login.class);
+            startActivity(logout);
+            finish();
+
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
