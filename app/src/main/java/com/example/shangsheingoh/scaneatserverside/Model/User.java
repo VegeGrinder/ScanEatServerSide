@@ -1,7 +1,7 @@
 package com.example.shangsheingoh.scaneatserverside.Model;
 
 public class User {
-    private String Name,Password,Phone,IsStaff;
+    private String Name,Password,Phone;
 
     public User(String name, String password) {
         Name = name;
@@ -35,11 +35,4 @@ public class User {
         Phone = phone;
     }
 
-    public String getIsStaff() {
-        return IsStaff;
-    }
-
-    public void setIsStaff(String isStaff) {
-        IsStaff = isStaff;
-    }
 }

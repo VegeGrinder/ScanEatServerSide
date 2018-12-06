@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -73,13 +74,15 @@ public class QRCodeScan extends AppCompatActivity implements View.OnClickListene
 //                try {
                 //converting the data to json
                 orderNumber = result.getContents();
+                Log.d("order",orderNumber);
                 requests.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         for(DataSnapshot requestKey:dataSnapshot.getChildren()){
-                            if(requestKey.equals(orderNumber)){
-                                requests.child(orderNumber).child("status").setValue("4");
+                            if(requestKey.getKey().equals(orderNumber)){
+                                Log.d("ting123",orderNumber);
+                                requests.child(orderNumber).child("status").setValue("3");
                             }
                         }
                     }
@@ -90,19 +93,23 @@ public class QRCodeScan extends AppCompatActivity implements View.OnClickListene
                     }
                 });
 
+                helper.child("slot_1").child("deliverList").child("oQW3qoO9Treli6uWMk5dKqTkmXu2").child("1544049830950").child("status").setValue("2");
+
                 helper.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        for(DataSnapshot slot:dataSnapshot.getChildren()){
-                            for(DataSnapshot location:dataSnapshot.child("deliverList").getChildren()){
-                                for(DataSnapshot lapsap:dataSnapshot.getChildren()){
-                                    if(lapsap.equals(orderNumber)){
-                                        helper.child(slot.toString()).child(location.toString()).child(lapsap.toString()).child("status").setValue("3");
-                                    }
-                                }
-                            }
+                        for(DataSnapshot slot:dataSnapshot.child("slot_1").child("deliverList").child("oQW3qoO9Treli6uWMk5dKqTkmXu2").getChildren()){
+
                         }
+                        //    for(DataSnapshot location:dataSnapshot.child("deliverList").getChildren()){
+                            //    for(DataSnapshot lapsap:location.getChildren()){
+                             //       if(lapsap.equals(orderNumber)){
+                                  //      helper.child(slot.toString()).child(location.toString()).child(lapsap.toString()).child("status").setValue("2");
+                                  //  }
+                              //  }
+                        //    }
+                     //   }
                     }
 
                     @Override

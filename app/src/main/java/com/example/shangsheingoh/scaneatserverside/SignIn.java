@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.shangsheingoh.scaneatserverside.Common.Common;
 import com.example.shangsheingoh.scaneatserverside.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,8 @@ public class SignIn extends AppCompatActivity {
 
     FirebaseDatabase db;
     DatabaseReference users;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,42 +58,42 @@ public class SignIn extends AppCompatActivity {
         final String localPhone = phone;
         final String localPassword = password;
 
-        users.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(localPhone).exists()){
-                    mDialog.dismiss();
-                    User user = dataSnapshot.child(localPhone).getValue(User.class);
-                    user.setPhone(localPhone);
-                    if(Boolean.parseBoolean(user.getIsStaff())){
-                        if(user.getPassword().equals(localPassword)){
-                            Intent login = new Intent(SignIn.this,Home.class);
-                            Common.currentUser = user;
-                            Log.d("name",Common.currentUser.getName());
-                            Log.d("phone",Common.currentUser.getPhone());
-                            Log.d("staff",Common.currentUser.getIsStaff());
-                            startActivity(login);
-                            finish();
-                        }
-                        else{
-                            Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                    else{
-                        Toast.makeText(SignIn.this, "Please login with staff account", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    mDialog.dismiss();
-                    Toast.makeText(SignIn.this, "User does not exist in database", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        users.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.child(localPhone).exists()){
+//                    mDialog.dismiss();
+//                    User user = dataSnapshot.child(localPhone).getValue(User.class);
+//                    user.setPhone(localPhone);
+//                    if(Boolean.parseBoolean(user.getIsStaff())){
+//                        if(user.getPassword().equals(localPassword)){
+//                            Intent login = new Intent(SignIn.this,Home.class);
+//                            Common.currentUser = user;
+//                            Log.d("name",Common.currentUser.getName());
+//                            Log.d("phone",Common.currentUser.getPhone());
+//                            Log.d("staff",Common.currentUser.getIsStaff());
+//                            startActivity(login);
+//                            finish();
+//                        }
+//                        else{
+//                            Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                    else{
+//                        Toast.makeText(SignIn.this, "Please login with staff account", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                else{
+//                    mDialog.dismiss();
+//                    Toast.makeText(SignIn.this, "User does not exist in database", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 }
